@@ -5,7 +5,7 @@
 //  Created by Alfa on 23.03.2026.
 //
 
-protocol ContactProtocol {
+protocol ContactProtocol: Equatable {
     var title: String { get set }
     var phone: String { get set }
 }

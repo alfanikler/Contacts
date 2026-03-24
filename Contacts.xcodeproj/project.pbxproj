@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		751E93912F7228CA00FC3B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 751E93902F7228CA00FC3B0B /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		751E934E2F719DA200FC3B0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		751E93372F719DA000FC3B0B /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		751E934D2F719DA200FC3B0B /* ContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		751E93572F719DA200FC3B0B /* ContactsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		751E93902F7228CA00FC3B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -72,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				751E93912F7228CA00FC3B0B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +97,7 @@
 				751E93392F719DA000FC3B0B /* Contacts */,
 				751E93502F719DA200FC3B0B /* ContactsTests */,
 				751E935A2F719DA200FC3B0B /* ContactsUITests */,
+				751E938F2F7228C000FC3B0B /* Frameworks */,
 				751E93382F719DA000FC3B0B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +110,14 @@
 				751E93572F719DA200FC3B0B /* ContactsUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		751E938F2F7228C000FC3B0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				751E93902F7228CA00FC3B0B /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

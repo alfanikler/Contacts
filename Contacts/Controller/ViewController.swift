@@ -9,12 +9,12 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    private var storage: ContactStorageProtocol!
+    private var storage: ContactStorageProtocol?
     
-    private var contacts: [ContactProtocol] = [] {
+    private var contacts: [any ContactProtocol] = [] {
         didSet {
             contacts.sort { $0.title < $1.title }
-            storage.save(contacts: contacts)
+            storage?.save(contacts: contacts)
         }
     }
     
@@ -65,7 +65,7 @@ final class ViewController: UIViewController {
     }
     
     private func loadContacts() {
-        contacts = storage.load()
+        //contacts = storage.load()
     }
 }
 

@@ -8,22 +8,45 @@
 import Foundation
 
 protocol ContactStorageProtocol {
-    func load() -> [ContactProtocol]
-    func save(contacts: [ContactProtocol])
+    func load() -> [any ContactProtocol]
+    func save(contacts: [any ContactProtocol])
 }
 
-class ContactStorage: ContactStorageProtocol {
-    
+protocol ContactStoreProtocol {
+    func array(forKey defaultName: String) -> [Any]?
+    func set(_ value: [Any]?, forKey defaultName: String)
+}
+
+final class ContactStore: ContactStoreProtocol {
     private var storage = UserDefaults.standard
-    private let storageKey = "contacts"
+
+    func array(forKey defaultName: String) -> [Any]? {
+        storage.array(forKey: defaultName)
+    }
+    
+    func set(_ value: [Any]?, forKey defaultName: String) {
+        storage.set(value, forKey: defaultName)
+    }
+}
+
+// Без NSObject падают тесты!
+final class ContactStorage: NSObject {
+    private let store: ContactStoreProtocol
+    private let key = "contacts"
     
     private enum ContactKey: String {
         case title, phone
     }
     
-    func load() -> [ContactProtocol] {
-        var resultContacts = [ContactProtocol]()
-        let contactsFromStorage = storage.array(forKey: storageKey) as? [[String: String]] ?? []
+    init(store: ContactStoreProtocol = ContactStore()) {
+        self.store = store
+    }
+}
+
+extension ContactStorage: ContactStorageProtocol {
+    func load() -> [any ContactProtocol] {
+        var resultContacts = [any ContactProtocol]()
+        let contactsFromStorage = store.array(forKey: key) as? [[String: String]] ?? []
         
         contactsFromStorage.forEach { contact in
             guard
@@ -39,7 +62,7 @@ class ContactStorage: ContactStorageProtocol {
         return resultContacts
     }
     
-    func save(contacts: [ContactProtocol]) {
+    func save(contacts: [any ContactProtocol]) {
         var arrayForStorage = [[String: String]]()
         
         contacts.forEach { contact in
@@ -50,6 +73,6 @@ class ContactStorage: ContactStorageProtocol {
             arrayForStorage.append(newElementForStorage)
         }
         
-        storage.set(arrayForStorage, forKey: storageKey)
+        store.set(arrayForStorage, forKey: key)
     }
 }
