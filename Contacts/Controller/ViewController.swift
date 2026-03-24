@@ -7,23 +7,27 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
+    
+    private var storage: ContactStorageProtocol!
     
     private var contacts: [ContactProtocol] = [] {
         didSet {
             contacts.sort { $0.title < $1.title }
+            storage.save(contacts: contacts)
         }
     }
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        storage = ContactStorage()
         loadContacts()
     }
     
-    @IBAction func showNewContactAlert() {
+    @IBAction private func showNewContactAlert() {
         let alertController = UIAlertController(
             title: "Create new contact",
             message: "Type name and phone",
@@ -61,22 +65,7 @@ class ViewController: UIViewController {
     }
     
     private func loadContacts() {
-        let names = [
-            "Steve Jobs",
-            "Steve Wozniak",
-            "Ronald Wayne",
-            "Tim Cook",
-            "Jony Ive",
-            "Craig Federighi",
-            "Phil Schiller",
-            "Chris Espinosa",
-            "Bill Atkinson",
-            "Andy Hertzfeld"
-        ]
-        
-        names.forEach { name in
-            contacts.append(Contact(title: name, phone: "+79999999999"))
-        }
+        contacts = storage.load()
     }
 }
 
