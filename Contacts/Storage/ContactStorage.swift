@@ -29,8 +29,7 @@ final class ContactStore: ContactStoreProtocol {
     }
 }
 
-// Без NSObject падают тесты!
-final class ContactStorage: NSObject {
+final class ContactStorage {
     private let store: ContactStoreProtocol
     private let key = "contacts"
     

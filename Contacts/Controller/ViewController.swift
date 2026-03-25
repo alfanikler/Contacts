@@ -65,7 +65,8 @@ final class ViewController: UIViewController {
     }
     
     private func loadContacts() {
-        //contacts = storage.load()
+        guard let storage else { return }
+        contacts = storage.load()
     }
 }
 

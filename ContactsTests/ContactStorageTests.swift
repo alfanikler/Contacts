@@ -25,7 +25,6 @@ final class MockContactStore: ContactStoreProtocol {
     }
 }
 
-@MainActor
 final class ContactsStorageTests: XCTestCase {
     func testSaveAndGetContacts() throws {
         let mockContactStore = MockContactStore()
