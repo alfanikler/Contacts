@@ -18,16 +18,23 @@ final class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet private weak var tableView: UITableView!
+    private lazy var tableView: UITableView = {
+        $0.delegate = self
+        $0.dataSource = self
+
+        return $0
+    }(UITableView(frame: view.frame))
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         storage = ContactStorage()
         loadContacts()
+        
+        view.addSubview(tableView)
     }
     
-    @IBAction private func showNewContactAlert() {
+    private func showNewContactAlert() {
         let alertController = UIAlertController(
             title: "Create new contact",
             message: "Type name and phone",
@@ -104,17 +111,19 @@ extension ViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension ViewController: UITableViewDelegate {
+
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let actionDelete = UIContextualAction(style: .destructive, title: "Delete") { _,_,_ in
             self.contacts.remove(at: indexPath.row)
-            tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
         let actions = UISwipeActionsConfiguration(actions: [actionDelete])
         
         return actions
     }
+
 }
